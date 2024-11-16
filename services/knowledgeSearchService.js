@@ -4,7 +4,7 @@ const { SessionsClient } = require("@google-cloud/dialogflow-cx");
 
 const client = new SessionsClient();
 async function getAnswer(bot, chatId, userId, text) {
-  // bot.sendChatAction(chatId, "typing");
+  bot.sendChatAction(chatId, "typing");
   // const refinedQuery = await queryRefinementService.refineQuery(text);
   // if(!refinedQuery) {
   //   return null;
