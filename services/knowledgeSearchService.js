@@ -11,15 +11,17 @@ async function getAnswer(bot, chatId, userId, text) {
   // }
 
   // console.log(`refined query: ${refinedQuery}`);
-  bot.sendChatAction(chatId, "typing");
+  let typingInterval = setInterval(() => {
+    bot.sendChatAction(chatId, "typing");
+  }, 4000);
 
   const sessionId = userId || Math.random().toString(36).substring(7);
 
   const sessionPath = client.projectLocationAgentSessionPath(
-      process.env.GOOGLE_PROJECT_ID,
-      process.env.GOOGLE_AGENT_LOCATION,
-      process.env.GOOGLE_AGENT_ID,
-      sessionId
+    process.env.GOOGLE_PROJECT_ID,
+    process.env.GOOGLE_AGENT_LOCATION,
+    process.env.GOOGLE_AGENT_ID,
+    sessionId
   );
 
   const request = {
@@ -38,6 +40,8 @@ async function getAnswer(bot, chatId, userId, text) {
   } catch (error) {
     console.error('Error during Dialogflow process:', error);
     throw new Error(`Dialogflow request failed: ${error.message}`);
+  } finally {
+    clearInterval(typingInterval);
   }
 }
 
