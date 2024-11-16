@@ -12,6 +12,7 @@ async function handlePrivateMessage(bot, msg) {
   const chatId = chat.id;
   
   if(text && text !== "/start") {
+    bot.sendChatAction(chatId, "typing");
     let answer = await knowledgeSearchService.getAnswer(userId, text);
     if (!answer) {
       answer = texts.NO_ANSWER;
