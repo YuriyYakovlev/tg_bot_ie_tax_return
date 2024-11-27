@@ -84,19 +84,19 @@ function isRateLimited(userId) {
 function handleRetry(retryCount, maxRetries) {
   if (retryCount < maxRetries) {
     const delay = 5000 * Math.pow(2, retryCount);
-    console.log(`Attempting to restart polling after ${delay} ms...`);
+    //console.log(`Attempting to restart polling after ${delay} ms...`);
     bot.stopPolling()
       .then(() => {
-        console.log("Polling stopped successfully.");
+        //console.log("Polling stopped successfully.");
         setTimeout(() => startBotPolling(retryCount + 1), delay);
-        console.log("Restarting polling.");
+        //console.log("Restarting polling.");
       })
       .catch(error => {
-        console.error("Error stopping polling:", error);
+        //console.error("Error stopping polling:", error);
         setTimeout(() => startBotPolling(retryCount + 1), delay);
       });
   } else {
-    console.error("Max retries reached, stopping the bot");
+    //console.error("Max retries reached, stopping the bot");
     process.exit(1);
   }
 }
